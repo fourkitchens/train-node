@@ -338,7 +338,7 @@
 
             * SSH into the server from your local machine
               <pre><code class="no-highlight">
-                $ ssh YOU@nodejs.4kclass.com
+                $ ssh YOU@train_node.4kclass.com
               </code></pre>
             * Pro-tip: You may want to keep two terminal sessions open to the server so
               you can edit files while running a node process or edit two files
@@ -351,7 +351,7 @@
               (we like vim but won't judge if you use emacs -- but we can't help you either).
             * If you want to edit files locally, SFTP with the credentials you were provided
               <pre><code class="no-highlight">
-                $ sftp YOU@nodejs.4kclass.com
+                $ sftp YOU@train_node.4kclass.com
               </code></pre>
 
             * You can also use your preferred SFTP client.
@@ -911,7 +911,7 @@
 
             <pre><code class="javascript">
               app.get('/nodes', function getNodes(req, res, next) {
-                nodes('http://instructor.nodejs.4kclass.com/exercises/drupal/rest/node.json', function renderNodes(err, nodes) {
+                nodes('http://instructor.train_node.4kclass.com/exercises/drupal/rest/node.json', function renderNodes(err, nodes) {
                   console.log(nodes);
                   if (err) return next( err);
                   res.render('nodes', { results: nodes });
@@ -1095,7 +1095,7 @@
                * Notifies the client of new stories.
                */
               setInterval(function newStories() {
-                nodes('http://instructor.nodejs.4kclass.com/rest/node.json', function gotNodes(err, nodes) {
+                nodes('http://instructor.train_node.4kclass.com/rest/node.json', function gotNodes(err, nodes) {
                   if (err) { return next(err); }
 
                   var newStories = [];
@@ -1104,7 +1104,7 @@
                     newStories.push({
                       title: node.title,
                       description: node.title + ' (nid: ' + node.nid + ')',
-                      link: 'http://instructor.nodejs.4kclass.com/node/' + node.nid
+                      link: 'http://instructor.train_node.4kclass.com/node/' + node.nid
                     });
                   });
 
