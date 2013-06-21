@@ -1161,6 +1161,141 @@
           </section>
         </section>
         <section data-markdown>
+          ## Working with Streams
+        </section>
+        <section>
+          <small>Working with streams</small>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+          </section>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+            * This is incredibly efficient, because you don't have to wait until a stream is finished before working with any data that's come in.
+          </section>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+            * This is incredibly efficient, because you don't have to wait until a stream is finished before working with any data that's come in.
+            * Fundumantal abstraction in node.js I/O.
+          </section>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+            * This is incredibly efficient, because you don't have to wait until a stream is finished before working with any data that's come in.
+            * Fundumantal abstraction in node.js I/O.
+            * Can be readable (reading a file), writeable (HTTP response) or both TCP connection.
+          </section>
+          <section data-markdown>
+            ### Best part is. . .
+
+          </section>
+          <section data-markdown>
+            ### Best part is. . .
+
+            . . . You are already using them.
+          </section>
+          <section data-markdown>
+            ### First code we wrote used a stream.
+
+            <pre><code class="javascript">
+              var http = require('http');
+              http.createServer(function hello(request, response) {
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.end('Hello World\n');
+              }).listen(1337);
+              console.log('Server running at http://127.0.0.1:1337/');
+            </code></pre>
+          </section>
+         
+          <section data-markdown>
+            ### Lets give it a shot.
+
+            ```~/train-node/streams```
+
+            * Read a file from the file system and write it out to the console.
+          </section>
+          <section data-markdown>
+            ### On the stream data event write to console.log.
+          </section>
+          <section data-markdown>
+            <pre><code class="javascript">
+              file.on('data', function(chunk){
+                console.log(chunk.toString());
+              });
+            </code></pre>
+          </section>
+          <section data-markdown>
+            ### For comparison lets use readFile instead
+          </section>
+          <section data-markdown>
+            <pre><code class="javascript">
+            fs.readFile('index.html', function(err, data) {
+              if (err) throw err;
+              console.log(data.toString());
+            });
+            </code></pre>
+
+          </section>
+          <section data-markdown>
+            ### For comparison lets use readFile instead
+
+            ```fs.readFile(filename, [options], callback)```
+
+            * Reads the contents of the file asyncrounsly.
+            * [fs.readFile Docs](http://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback)
+          </section>
+          <section data-markdown>
+            ### console.log the file contents using readFile().
+          </section>
+          <section data-markdown>
+            ### Now create an HTTP server using readFile
+          </section>
+          <section data-markdown>
+            <pre><code class="javascript">
+              fs.readFile('index.html', function (err, data) {
+                if (err) {
+                  res.statusCode = 500;
+                  res.end(String(err));
+                }
+                else res.end(data);
+              });
+            </code></pre>
+          </section>
+          <section data-markdown>
+            ## Pipe
+
+            * Method on streams that allows you to route the data from one stream to another directly
+            * Allows for some very powerful and performat opperations.
+            * works like the unix pipe '|'
+
+            ```history | grep node```
+          </section>
+          <section data-markdown>
+            ### Server using Pipe.
+          </section>
+          <section data-markdown>
+            <pre><code>
+              var file = fs.createReadStream('index.html');
+              file.pipe(res);
+            </code></pre>
+          </section>
+          <section data-markdown>
+            ### Adding a stream of images from flickr to our little webapp.
+
+            * Helper code to get a feed from flickr and pipe into into a stream.
+            ** https://gist.github.com/mirzu/5828095
+
+            * New emitter for images.
+            https://gist.github.com/mirzu/5828092
+          </section>
+        </section>  
+        <section data-markdown>
           ## Working with Databases
         </section>
         <section>
