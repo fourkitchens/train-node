@@ -338,7 +338,7 @@
 
             * SSH into the server from your local machine
               <pre><code class="no-highlight">
-                $ ssh YOU@nodejs.4kclass.com
+                $ ssh YOU@train_node.4kclass.com
               </code></pre>
             * Pro-tip: You may want to keep two terminal sessions open to the server so
               you can edit files while running a node process or edit two files
@@ -351,7 +351,7 @@
               (we like vim but won't judge if you use emacs -- but we can't help you either).
             * If you want to edit files locally, SFTP with the credentials you were provided
               <pre><code class="no-highlight">
-                $ sftp YOU@nodejs.4kclass.com
+                $ sftp YOU@train_node.4kclass.com
               </code></pre>
 
             * You can also use your preferred SFTP client.
@@ -360,13 +360,13 @@
             ## File structure
 
             * All course code is located in
-              <pre><code class="no-highlight">~/train-node</code></pre>
+              <pre><code class="no-highlight">~/train_node</code></pre>
             * Familiarize yourself with the files and directories here,
               you'll be spending most of your time in the following directories:
               <pre><code class="no-highlight">
-                ~/train-node/js101
-                ~/train-node/exercises/drupal
-                ~/train-node/exercises/server
+                ~/train_node/js101
+                ~/train_node/exercises/drupal
+                ~/train_node/exercises/server
               </code></pre>
           </section>
           <section data-markdown>
@@ -420,7 +420,7 @@
           <section data-markdown>
             ## Your first Server.
 
-            ```~/train-node/hello/app.js```
+            ```~/train_node/hello/app.js```
 
             * Respond to the HTTP request with a hello world message
           </section>
@@ -470,7 +470,7 @@
 
             * Use the ```express``` command to set up some scaffolding for a new application:
             <pre><code class="no-highlight">
-              $ cd ~/train-node/exercies
+              $ cd ~/train_node/exercies
               $ express myserver
               $ cd myserver
               $ npm install
@@ -482,7 +482,7 @@
             * We're going to make a few changes to support the application we're going to build:
               1. Copy the config.js file and client directory from your home directory to the example dirctory:
                 <pre><code class="no-highlight">
-                  $ cp ~/config.js ~/train-node/exercises/myserver/config.js
+                  $ cp ~/config.js ~/train_node/exercises/myserver/config.js
                 </code></pre>
           </section>
           <section data-markdown>
@@ -698,7 +698,7 @@
           </section>
           <section data-markdown>
             <pre><code class="no-highlight">
-              ~/train-node/require/modules
+              ~/train_node/require/modules
             </code></pre>
 
             module_a.js
@@ -772,8 +772,8 @@
             ## Try it
 
             <pre><code class="no-highlight">
-              $ mkdir ~/train-node/require/colorsExample
-              $ cd ~/train-node/require/colorsExample
+              $ mkdir ~/train_node/require/colorsExample
+              $ cd ~/train_node/require/colorsExample
               $ npm init
               $ npm install colors
             </code></pre>
@@ -911,7 +911,7 @@
 
             <pre><code class="javascript">
               app.get('/nodes', function getNodes(req, res, next) {
-                nodes('http://instructor.nodejs.4kclass.com/exercises/drupal/rest/node.json', function renderNodes(err, nodes) {
+                nodes('http://instructor.train_node.4kclass.com/exercises/drupal/rest/node.json', function renderNodes(err, nodes) {
                   console.log(nodes);
                   if (err) return next( err);
                   res.render('nodes', { results: nodes });
@@ -1049,7 +1049,7 @@
             ### Where's the code?
 
             <pre><code class="no-highlight">
-              ~/train-node/exercises/server/app.js
+              ~/train_node/exercises/server/app.js
             </code></pre>
 
             * This is where you'll be living for the remainder of the class.
@@ -1095,7 +1095,7 @@
                * Notifies the client of new stories.
                */
               setInterval(function newStories() {
-                nodes('http://instructor.nodejs.4kclass.com/rest/node.json', function gotNodes(err, nodes) {
+                nodes('http://instructor.train_node.4kclass.com/rest/node.json', function gotNodes(err, nodes) {
                   if (err) { return next(err); }
 
                   var newStories = [];
@@ -1104,7 +1104,7 @@
                     newStories.push({
                       title: node.title,
                       description: node.title + ' (nid: ' + node.nid + ')',
-                      link: 'http://instructor.nodejs.4kclass.com/node/' + node.nid
+                      link: 'http://instructor.train_node.4kclass.com/node/' + node.nid
                     });
                   });
 
@@ -1160,6 +1160,141 @@
               serve chat history to new clients.
           </section>
         </section>
+        <section data-markdown>
+          ## Working with Streams
+        </section>
+        <section>
+          <small>Working with streams</small>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+          </section>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+            * This is incredibly efficient, because you don't have to wait until a stream is finished before working with any data that's come in.
+          </section>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+            * This is incredibly efficient, because you don't have to wait until a stream is finished before working with any data that's come in.
+            * Fundumantal abstraction in node.js I/O.
+          </section>
+          <section data-markdown>
+            ### Overview
+
+            * As its name implies, streams are a continuous flow of information that can be diverted or processed as it comes in.
+            * This is incredibly efficient, because you don't have to wait until a stream is finished before working with any data that's come in.
+            * Fundumantal abstraction in node.js I/O.
+            * Can be readable (reading a file), writeable (HTTP response) or both TCP connection.
+          </section>
+          <section data-markdown>
+            ### Best part is. . .
+
+          </section>
+          <section data-markdown>
+            ### Best part is. . .
+
+            . . . You are already using them.
+          </section>
+          <section data-markdown>
+            ### First code we wrote used a stream.
+
+            <pre><code class="javascript">
+              var http = require('http');
+              http.createServer(function hello(request, response) {
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.end('Hello World\n');
+              }).listen(1337);
+              console.log('Server running at http://127.0.0.1:1337/');
+            </code></pre>
+          </section>
+         
+          <section data-markdown>
+            ### Lets give it a shot.
+
+            ```~/train_node/streams```
+
+            * Read a file from the file system and write it out to the console.
+          </section>
+          <section data-markdown>
+            ### On the stream data event write to console.log.
+          </section>
+          <section data-markdown>
+            <pre><code class="javascript">
+              file.on('data', function(chunk){
+                console.log(chunk.toString());
+              });
+            </code></pre>
+          </section>
+          <section data-markdown>
+            ### For comparison lets use readFile instead
+          </section>
+          <section data-markdown>
+            <pre><code class="javascript">
+            fs.readFile('index.html', function(err, data) {
+              if (err) throw err;
+              console.log(data.toString());
+            });
+            </code></pre>
+
+          </section>
+          <section data-markdown>
+            ### For comparison lets use readFile instead
+
+            ```fs.readFile(filename, [options], callback)```
+
+            * Reads the contents of the file asyncrounsly.
+            * [fs.readFile Docs](http://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback)
+          </section>
+          <section data-markdown>
+            ### console.log the file contents using readFile().
+          </section>
+          <section data-markdown>
+            ### Now create an HTTP server using readFile
+          </section>
+          <section data-markdown>
+            <pre><code class="javascript">
+              fs.readFile('index.html', function (err, data) {
+                if (err) {
+                  res.statusCode = 500;
+                  res.end(String(err));
+                }
+                else res.end(data);
+              });
+            </code></pre>
+          </section>
+          <section data-markdown>
+            ## Pipe
+
+            * Method on streams that allows you to route the data from one stream to another directly
+            * Allows for some very powerful and performat opperations.
+            * works like the unix pipe '|'
+
+            ```history | grep node```
+          </section>
+          <section data-markdown>
+            ### Server using Pipe.
+          </section>
+          <section data-markdown>
+            <pre><code>
+              var file = fs.createReadStream('index.html');
+              file.pipe(res);
+            </code></pre>
+          </section>
+          <section data-markdown>
+            ### Adding a stream of images from flickr to our little webapp.
+
+            * Helper code to get a feed from flickr and pipe into into a stream.
+            ** https://gist.github.com/mirzu/5828095
+
+            * New emitter for images.
+            https://gist.github.com/mirzu/5828092
+          </section>
+        </section>  
         <section data-markdown>
           ## Working with Databases
         </section>
