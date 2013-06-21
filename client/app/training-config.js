@@ -1,3 +1,3 @@
 define({
-  url: 'http://local.d7.com:3000'
+  url: 'http://instructor.nodejs.4kclass.com:3000'
 });
