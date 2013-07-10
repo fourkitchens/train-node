@@ -338,7 +338,7 @@
 
             * SSH into the server from your local machine
               <pre><code class="no-highlight">
-                $ ssh YOU@train_node.4kclass.com
+                $ ssh YOU@nodejs.4kclass.com
               </code></pre>
             * Pro-tip: You may want to keep two terminal sessions open to the server so
               you can edit files while running a node process or edit two files
@@ -351,7 +351,7 @@
               (we like vim but won't judge if you use emacs -- but we can't help you either).
             * If you want to edit files locally, SFTP with the credentials you were provided
               <pre><code class="no-highlight">
-                $ sftp YOU@train_node.4kclass.com
+                $ sftp YOU@nodejs.4kclass.com
               </code></pre>
 
             * You can also use your preferred SFTP client.
@@ -360,13 +360,13 @@
             ## File structure
 
             * All course code is located in
-              <pre><code class="no-highlight">~/train_node</code></pre>
+              <pre><code class="no-highlight">~/nodejs</code></pre>
             * Familiarize yourself with the files and directories here,
               you'll be spending most of your time in the following directories:
               <pre><code class="no-highlight">
-                ~/train_node/js101
-                ~/train_node/exercises/drupal
-                ~/train_node/exercises/server
+                ~/nodejs/js101
+                ~/nodejs/exercises/drupal
+                ~/nodejs/exercises/server
               </code></pre>
           </section>
           <section data-markdown>
@@ -420,7 +420,7 @@
           <section data-markdown>
             ## Your first Server.
 
-            ```~/train_node/hello/app.js```
+            ```~/nodejs/hello/app.js```
 
             * Respond to the HTTP request with a hello world message
           </section>
@@ -470,7 +470,7 @@
 
             * Use the ```express``` command to set up some scaffolding for a new application:
             <pre><code class="no-highlight">
-              $ cd ~/train_node/exercies
+              $ cd ~/nodejs/exercies
               $ express myserver
               $ cd myserver
               $ npm install
@@ -482,7 +482,7 @@
             * We're going to make a few changes to support the application we're going to build:
               1. Copy the config.js file and client directory from your home directory to the example dirctory:
                 <pre><code class="no-highlight">
-                  $ cp ~/config.js ~/train_node/exercises/myserver/config.js
+                  $ cp ~/config.js ~/nodejs/exercises/myserver/config.js
                 </code></pre>
           </section>
           <section data-markdown>
@@ -698,7 +698,7 @@
           </section>
           <section data-markdown>
             <pre><code class="no-highlight">
-              ~/train_node/require/modules
+              ~/nodejs/require/modules
             </code></pre>
 
             module_a.js
@@ -772,8 +772,8 @@
             ## Try it
 
             <pre><code class="no-highlight">
-              $ mkdir ~/train_node/require/colorsExample
-              $ cd ~/train_node/require/colorsExample
+              $ mkdir ~/nodejs/require/colorsExample
+              $ cd ~/nodejs/require/colorsExample
               $ npm init
               $ npm install colors
             </code></pre>
@@ -911,7 +911,7 @@
 
             <pre><code class="javascript">
               app.get('/nodes', function getNodes(req, res, next) {
-                nodes('http://instructor.train_node.4kclass.com/exercises/drupal/rest/node.json', function renderNodes(err, nodes) {
+                nodes('http://instructor.nodejs.4kclass.com/exercises/drupal/rest/node.json', function renderNodes(err, nodes) {
                   console.log(nodes);
                   if (err) return next( err);
                   res.render('nodes', { results: nodes });
@@ -1049,7 +1049,7 @@
             ### Where's the code?
 
             <pre><code class="no-highlight">
-              ~/train_node/exercises/server/app.js
+              ~/nodejs/exercises/server/app.js
             </code></pre>
 
             * This is where you'll be living for the remainder of the class.
@@ -1095,7 +1095,7 @@
                * Notifies the client of new stories.
                */
               setInterval(function newStories() {
-                nodes('http://instructor.train_node.4kclass.com/rest/node.json', function gotNodes(err, nodes) {
+                nodes('http://instructor.nodejs.4kclass.com/rest/node.json', function gotNodes(err, nodes) {
                   if (err) { return next(err); }
 
                   var newStories = [];
@@ -1104,7 +1104,7 @@
                     newStories.push({
                       title: node.title,
                       description: node.title + ' (nid: ' + node.nid + ')',
-                      link: 'http://instructor.train_node.4kclass.com/node/' + node.nid
+                      link: 'http://instructor.nodejs.4kclass.com/node/' + node.nid
                     });
                   });
 
@@ -1216,7 +1216,7 @@
           <section data-markdown>
             ### Lets give it a shot.
 
-            ```~/train_node/streams```
+            ```~/nodejs/streams```
 
             * Read a file from the file system and write it out to the console.
           </section>
